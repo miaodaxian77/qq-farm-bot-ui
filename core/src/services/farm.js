@@ -215,7 +215,7 @@ async function runFertilizerByConfig(plantedLands = [], options = {}) {
     const fertilizerConfig = automation.fertilizer || 'none';
     const reason = String(options.reason || '').trim().toLowerCase() === 'multi_season' ? 'multi_season' : 'normal';
     const reasonLabel = reason === 'multi_season' ? '多季补肥' : '常规施肥';
-    const eventName = reason === 'multi_season' ? 'fertilize_multi_season' : 'fertilize';
+    const eventName = reason === 'multi_season' ? '多季补肥' : 'fertilize';
     const selectedLandTypes = normalizeFertilizerLandTypes(automation.fertilizer_land_types);
     const selectedLandTypeNames = formatFertilizerLandTypes(selectedLandTypes);
     const planted = [...new Set((Array.isArray(plantedLands) ? plantedLands : []).map(v => toNum(v)).filter(Boolean))];
@@ -1157,19 +1157,12 @@ async function runFarmOperation(opType, options = {}) {
     if (opType === 'all' && postHarvest && Array.isArray(postHarvest.growing) && postHarvest.growing.length > 0 && isAutomationOn('fertilizer_multi_season')) {
         const multiSeasonTargets = [...new Set(postHarvest.growing.map(v => toNum(v)).filter(Boolean))];
         if (multiSeasonTargets.length > 0) {
-            log('施肥', `检测到多季作物进入后续季，准备执行多季补肥，目标地块 ${multiSeasonTargets.length} 块`, {
-                module: 'farm',
-                event: 'fertilize_multi_season',
-                result: 'trigger',
-                count: multiSeasonTargets.length,
-                landIds: multiSeasonTargets,
-            });
             try {
                 await runFertilizerByConfig(multiSeasonTargets, { reason: 'multi_season' });
             } catch (e) {
                 logWarn('施肥', `多季补肥执行失败: ${e.message}`, {
                     module: 'farm',
-                    event: 'fertilize_multi_season',
+                    event: '多季补肥',
                     result: 'error',
                 });
             }
