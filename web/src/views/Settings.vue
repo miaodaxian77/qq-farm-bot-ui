@@ -6,8 +6,8 @@ import ConfirmModal from '@/components/ConfirmModal.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import BaseInput from '@/components/ui/BaseInput.vue'
 import BaseSelect from '@/components/ui/BaseSelect.vue'
-import BaseTextarea from '@/components/ui/BaseTextarea.vue'
 import BaseSwitch from '@/components/ui/BaseSwitch.vue'
+import BaseTextarea from '@/components/ui/BaseTextarea.vue'
 import { useAccountStore } from '@/stores/account'
 import { useFarmStore } from '@/stores/farm'
 import { useSettingStore } from '@/stores/setting'
@@ -843,12 +843,12 @@ async function handleTestOffline() {
             <BaseTextarea
               v-model="localOffline.custom_headers"
               label="Headers (严格 JSON)"
-              placeholder='例如: {"Content-Type": "application/json", "Authorization": "Bearer TOKEN"}'
+              placeholder="例如: {&quot;Content-Type&quot;: &quot;application/json&quot;, &quot;Authorization&quot;: &quot;Bearer TOKEN&quot;}"
             />
             <BaseTextarea
               v-model="localOffline.custom_body"
               label="Body (严格 JSON, 占位符支持 {{title}}（标题） {{content}}（内容）)"
-              placeholder='例如: { "title": "{{title}}", "message": "{{content}}" }'
+              placeholder="例如: { &quot;title&quot;: &quot;{{title}}&quot;, &quot;message&quot;: &quot;{{content}}&quot; }"
             />
           </template>
         </div>
